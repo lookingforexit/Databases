@@ -28,7 +28,10 @@ CREATE TABLE flights (
 CREATE TABLE bookings (
     booking_id SERIAL PRIMARY KEY,
     passenger_id INTEGER NOT NULL REFERENCES passengers(passenger_id) ON DELETE CASCADE,
-    booking_date TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    booking_date TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    booking_status VARCHAR(9) NOT NULL DEFAULT 'created',
+
+    CHECK (booking_status IN ('created', 'completed', 'canceled'))
 );
 
 CREATE TABLE tickets (
